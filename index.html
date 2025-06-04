@@ -30,6 +30,43 @@
             flex: 2;
             }
         
+        .show-photo-btn {
+          font-size: 40px;
+          font-weight: 100;
+          -webkit-text-stroke: 0.6px black;
+          margin-left: 40px;
+          cursor: pointer;
+          background-color: #DBF9DB;
+          color: #2a63d6;
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          transition: color 0.3s;
+        }
+
+        .show-photo-btn:hover {
+          color: #ffffff;
+          border-color: #1a4fc1;
+        }
+        
+        .open-btn {
+          color: #2a63d6;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          transition: color 0.3s; border-color 0.3s;
+          cursor: pointer;
+            }
+
+        .open-btn:hover {
+          color: #ffffff;
+          border-color: #1a4fc1;
+        }
+
+        
+        .photo-icon {
+          font-size: 24px;
+          margin-left: 8px;
+          vertical-align: middle;
+}
         .artist-photo {
           position: fixed;
           top: 20%;
@@ -188,9 +225,9 @@
     </header>
     
     <section id="artist-info" style="margin-top: 40px; max-width: 500px; position: relative;">
-    <a href="#" class="show-photo-btn" data-target="photo" style="font-size: 40px; font-weight: 100; -webkit-text-stroke: 0.6px black; margin-left: 40px; cursor: pointer; background-color: #DBF9DB; color: aliceblue; text-decoration: none;">
-        Ichiko Aoba
-      </a>
+    <a href="#" class="show-photo-btn" data-target="photo" title="Click to view photo">
+      Ichiko Aoba
+    </a>
             <p style="margin-top: 10px; line-height: 1.5; text-align: justify; margin-left: 60px; background-color: lavenderblush;">  
                 Ichiko Aoba is the founder of independent label hermine. Since her 2010 debut, she has released over seven albums, and has travelled across the globe with nothing more than her voice and nylon-string guitar. Since releasing Windswept Adan (2020), described as a “soundtrack for a fictional film,” she has also begun to incorporate strings in her live shows. Aoba’s work as a radio presenter, narrator, film composer, and performer across a wide variety of fields has consistently won her acclaim, including the prestigious best soundtrack award at the 77th Mainichi Film Awards for her work on Amiko (2022). Recipient of the ANCHOR Award at the 2023 Reeperbahn Festival.
               </p>
@@ -205,7 +242,7 @@
         <section id="interview-content" style="margin-top: 40px">
             <div class="left-text">
             <article class="qa1">
-                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0px black; max-width: 500px; background-color: #DBF9DB; ">
                     Your <a href="#" class="open-btn" data-target="album-photo-1">new album</a> is an ode to Japan’s Ryukyu Archipelago. What was the process of rooting yourself in that specific place?</p>
                         <div id="album-photo-1" class="popup-photo" style="top: 35%; left: 80%; max-width: 500px;">
                           <a href="#" class="close-btn">✕ close</a>
