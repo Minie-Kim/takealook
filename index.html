@@ -33,8 +33,7 @@
         .show-photo-btn {
           font-size: 40px;
           font-weight: 100;
-          /* -webkit-text-stroke: 0.6px black; */
-          text-shadow: 0 0 2px black; 
+          text-shadow: 0 0 0.8px black, 0 0 1.5px black;
           margin-left: 40px;
           cursor: pointer;
           background-color: #DBF9DB;
@@ -42,27 +41,41 @@
           text-decoration: underline;
           text-decoration-color: #2a63d6;
           text-underline-offset: 4px;
-          transition: color 0.3s, text-decoration-color 0.3s;
+          transition: 
+            color 0.3s ease,
+            text-shadow 0.3s ease,
+            text-decoration-color 0.3s ease;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
 
         .show-photo-btn:hover {
           color: #ffffff;
+          text-shadow: 0 0 2px black, 0 0 4px black;
           text-decoration-color: #ffffff;
-}
+        }
+
         
         .open-btn {
+          font-weight: 200;
+          text-shadow: 0 0 0.1px black, 0 0 0.3px black;
           color: #2a63d6;
           text-decoration: underline;
+          text-decoration-color: #2a63d6;
           text-underline-offset: 3px;
-          transition: color 0.3s; border-color 0.3s;
-          cursor: pointer;
-            }
+          transition: 
+            color 0.3s ease,
+            text-shadow 0.3s ease,
+            text-decoration-color 0.3s ease;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
 
         .open-btn:hover {
           color: #ffffff;
-          border-color: #1a4fc1;
+          text-shadow: 0 0 2px black, 0 0 4px black;
+          text-decoration-color: #ffffff;
         }
-
         
         .photo-icon {
           font-size: 24px;
@@ -503,4 +516,7 @@
     });
   });
 </script>
+
+
+    
 </body>
