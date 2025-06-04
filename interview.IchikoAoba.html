@@ -1,0 +1,470 @@
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;            
+            font-weight: 100;
+            background-color: gainsboro;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            } 
+        header {
+            position: relative;
+            margin: 0;
+            width: 100%;
+            }
+        header h1, header p {
+            margin: 0;
+            padding: 0;
+            }
+        #interview-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap:  40px;
+            padding: 0 60px;
+            }
+        .left-text {
+            flex: 2;
+            }
+        
+        .artist-photo {
+          position: fixed;
+          top: 20%;
+          right: 20px;
+          width: 300px;
+          background: white;
+          border: 1px solid #ccc;
+          padding: 10px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.3);
+          border-radius: 8px;
+          display: none;
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+          z-index: 1000;
+        }
+
+        .artist-photo.show {
+          display: block;
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+        }
+        
+        .popup-photo {
+          display: none;
+          position: fixed;
+          top: 25%;
+          left: 50%;
+          transform: translateX(-50%);
+          background: white;
+          padding: 10px;
+          border: 1px solid #ccc;
+          box-shadow: 0 0 10px rgba(0,0,0,0.3);
+          border-radius: 8px;
+          z-index: 1000;
+          max-width: 500px;
+        }
+
+        .popup-photo.show {
+          display: block;
+        }
+
+        .popup-photo img {
+          width: 100%;
+          border-radius: 8px;
+        }
+
+        .close-btn {
+          cursor: pointer;
+          font-weight: bold;
+          text-align: right;
+          margin-bottom: 5px;
+          display: block;
+          color: #444;
+          text-decoration: none;
+        }
+
+        .close-btn:hover {
+          color: black;
+        }
+        
+        .animation-container, svg {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw; height: 100vh;
+          pointer-events: none;
+          z-index: 1;
+          overflow: hidden;
+          transform: translateX(300px);
+
+        }
+
+        .petal {
+          fill: #ffc0cb;
+          opacity: 0.5;
+          transform-origin: center;
+          animation: fallDown 10s ease-in-out infinite;
+          transform-origin: center;
+            }
+
+        .leaf {
+          fill: #a0522d;
+          opacity: 0.5;
+          transform-origin: center;
+          animation: fallDown 12s ease-in-out infinite;
+        }
+
+        .petal:nth-child(odd) {
+          animation-name: fallDown;
+        }
+
+        .petal:nth-child(even) {
+          animation-name: fallStraight;
+        }
+
+        .leaf:nth-child(odd) {
+          animation-name: fallDown;
+        }
+
+        .leaf:nth-child(even) {
+          animation-name: fallStraight;
+        }
+
+
+        @keyframes fallDown  {
+          0% {
+            transform: translateX(0) translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          25% {
+            transform: translateX(100px) translateY(25vh) rotate(15deg);
+            opacity: 0.8;
+          }
+          50% {
+            transform: translateX(-70px) translateY(55vh) rotate(-15deg);
+            opacity: 0.6;
+          }
+          75% {
+            transform: translateX(80px) translateY(85vh) rotate(10deg);
+            opacity: 0.4;
+          }
+          100% {
+            transform: translateX(0) translateY(110vh) rotate(0deg);
+            opacity: 0;
+          }
+        }
+        @keyframes fallStraight {
+          0% {
+            transform: translateX(0) translateY(0) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateX(80px) translateY(110vh) rotate(10deg);
+            opacity: 0;
+          }
+        }
+
+
+    </style>
+</head>
+
+<body>        
+        
+    <header style="position: relative;
+                   margin-left: 10px;
+                   width: 100%;">
+        <span style="font-size: 70px; color: aliceblue; -webkit-text-stroke: 1px black;">
+            On the being Stuck as a form of adventure
+        </span>
+        
+    <p class="interview-topic">
+    <span style="margin-left: 8px; font-size:25px;">
+        Musician Ichiko Aoba discusses the joy within creative struggle, being able to directly give the gift of music, and feeling utterly alone</span></p>
+    </header>
+    
+    <section id="artist-info" style="margin-top: 40px; max-width: 500px; position: relative;">
+    <a href="#" class="show-photo-btn" data-target="photo" style="font-size: 40px; font-weight: 100; -webkit-text-stroke: 0.6px black; margin-left: 40px; cursor: pointer; background-color: #DBF9DB; color: aliceblue; text-decoration: none;">
+        Ichiko Aoba
+      </a>
+            <p style="margin-top: 10px; line-height: 1.5; text-align: justify; margin-left: 60px; background-color: lavenderblush;">  
+                Ichiko Aoba is the founder of independent label hermine. Since her 2010 debut, she has released over seven albums, and has travelled across the globe with nothing more than her voice and nylon-string guitar. Since releasing Windswept Adan (2020), described as a “soundtrack for a fictional film,” she has also begun to incorporate strings in her live shows. Aoba’s work as a radio presenter, narrator, film composer, and performer across a wide variety of fields has consistently won her acclaim, including the prestigious best soundtrack award at the 77th Mainichi Film Awards for her work on Amiko (2022). Recipient of the ANCHOR Award at the 2023 Reeperbahn Festival.
+              </p>
+
+      <div id="photo" class="artist-photo">
+        <a href="#" class="close-btn">✕ close</a>
+        <img src="https://cdn.filestackcontent.com/IkwlZ0n2SBWc5Glk6bVw" alt="Ichiko Aoba" style="width: 100%; border-radius: 8px;">
+      </div>
+    </section>
+
+    <main>
+        <section id="interview-content" style="margin-top: 40px">
+            <div class="left-text">
+            <article class="qa1">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    Your <a href="#" class="open-btn" data-target="album-photo-1">new album</a> is an ode to Japan’s Ryukyu Archipelago. What was the process of rooting yourself in that specific place?</p>
+                        <div id="album-photo-1" class="popup-photo" style="top: 35%; left: 80%; max-width: 500px;">
+                          <a href="#" class="close-btn">✕ close</a>
+                          <a href="https://open.spotify.com/album/2mLrmtSEmIWLO6sLAq4lNH?si=nD72f1y1RT6odlm3akPK6Q" target="_blank">
+                            <img src="https://f4.bcbits.com/img/a0232619269_16.jpg" alt="Album 1">
+                          </a>
+                        </div>
+                <p style= "font-weight: 10; font-size: 15px; text-align: justify; line-height: 20px; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I spent years in this part of Japan. First of all, this album is very closely related to the previous album, <a href="#" class="open-btn" data-target="album-photo-2">Windswept Adan</a>.             
+                    Luminescent Creatures mainly focuses on the most southern island of Okinawa, <a href="#" class="open-btn" data-target="photo-hateruma">Hateruma Island</a>. For Windswept Adan, it was more about getting an impression of the islands, taking inspiration just from being there. This time, me, my creative director, my engineer, co-director—the whole team—spent more time on that one island and started to learn about the tradition of the island, how they live, about the ecosystem. We were able to put the inspiration that came from the research into the music.</p>
+
+                    <div id="album-photo-2" class="popup-photo" style="top: 10%; left: 85%; width: 350px;">
+                      <a href="#" class="close-btn">✕ close</a>
+                      <a href="https://open.spotify.com/album/0LxeUCxtPfUtnHTKbW52MB?si=R1kvZr9dQZm0yaXGKYtzog" target="_blank">
+                        <img src="https://f4.bcbits.com/img/a2741010406_16.jpg" alt="Album 2">
+                      </a>
+                    </div>
+                        
+                    <div id="photo-hateruma" class="popup-photo" style="top: 2%; left: 55%; width: 300px;">
+                      <a href="#" class="close-btn">✕ close</a>
+                      <a href="https://visitokinawajapan.com/destinations/yaeyama-islands/hateruma-island/" target="_blank">
+                        <img src="https://visitokinawajapan.com/wp-content/themes/visit-okinawa_multi-language/lang/en/assets/img/destinations/yaeyama-islands/hateruma-island/de98_kv_hateruma-island-beach-scenery.webp" alt="Hateruma Island" style="width: 100%; border-radius: 8px;">
+                      </a>
+                    </div>
+            </article>
+
+            <article class="qa2">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    The second track, “24° 3′ 27.0″ N, 123° 47′ 7.5″ E,” is a traditional folk song of Hateruma. Why did you decide to include that?</p>
+                 <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                     I’ve participated three times in this traditional, local festival that is very closely tied to spirituality, like Shintoism. But in Okinawa, it’s also attached to their own specific spirituality. When I participated the first time, there was one song that I had to learn as a part of their ritual. I really learned it, and it really came into me and absorbed into my body. I was humming the melody of that song, and my collaborator Taro [Umebayashi] suggested, “Maybe we should use the melody to collaborate with the island, in a way.” The title of the track is the location of the island’s lighthouse.</p>
+                </article>
+                
+            <article class="qa3">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    Do you ever feel a tension between the old and the new, or between what the music world wants from you and your interests in spirituality and tradition?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I feel like there is a gap between the music industry and what I want to do. Because of the gap, I created my own label five years ago, and then my own company three years ago. I wanted to make a business structure that establishes and protects what I want to do as an artist. It’s not really about promo, promo, promo, but it’s more like, I’m handing you the music, I’m going to cater that music to you. It is a more di
+                    rect path to create that way.</p>    
+                </article>
+            
+           <article class="qa4">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    How do you balance running your own label and company with songwriting?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I have many people surrounding me, helping me… [people] on my team working on this part of the business structure [which allows] me to do the thing I’m interested in, which is to give a gift to the fans.
+                    <br>
+                    <br>[Ichiko shows photos on her phone from the festival for the deity]
+                    <br>
+                    <br>This is the god of the harvest. It’s a woman, a female deity named Miruku. Her name means “milk.”</p>
+                </article>
+            
+            <article class="qa5">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    What is your relationship to spirituality?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I do not subscribe to a certain religion. But I am fascinated by it. My father was involved with Buddhism. I went to a Catholic school, where I saw many religious images that influenced me, like depictions of heaven and hell. It’s a place to take inspiration from.</p>
+                </article>
+
+            <article class="qa6">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    What role do visuals play in your work as a musician?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    For this album, everyone on my team had their own way of processing the island through their preferred method of creativity. Then we’d come together and make sure we were on the right track. It was more of a loose collaboration. The jacket image of the record is from a different island, actually, and it came about because a local grandpa invited us to see a part of the coral reef that he never takes tourists to. Part of the coral reef has died since then, but the image is alive and is the image of the album.</p>
+                </article>
+            
+            <article class="qa7">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    You also draw great doodles. What fuels you creatively other than music?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    For me, making music is not the first step for creatively expressing. I create the story first. Doodling is part of creating imagery for a story. Once the story is done in my mind, I’ll think, “Maybe I want to turn that into something…” and I’ll express it in music.</p>
+                </article>
+
+            <article class="qa8">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    That makes me think of soundtracks, which you have made. And now you’re kind of like a composer for millions of people who use your songs in the background of their “day in my life” TikToks.</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    Perhaps you’re right!</p>
+                </article>
+                
+            <article class="qa9">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    How do you feel about people using your work in this way?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    Please, please do. When I release the music, it’s out there, it’s done, I’m ready. However far it goes on social media platforms is totally fine, because that’s shared by people. That’s part of the structure. But going into advertising and things like that, it needs more moderating.
+                </article>
+                
+            <article class="qa10">
+                <p style= "font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    Your music feels so otherworldly, like it springs from this magical well. Do you ever get creatively stuck?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I am a human being, and as is true for all human beings, not everything comes out smoothly. Being stuck is part of the process. It’s a very important part of the process for getting my music to feel complete. Making music is not always fun. It’s a struggle, but that struggle is part of the joy of making it.
+                <figure>
+                    <img src="https://cdn.filestackcontent.com/resize=width:2000/GFlhudSTkK1rJ7kxjTIu" alt="drawing of Ichiko Aoba" style= "width: 450px; margin-top: 5px; margin-left: 40px;">
+                    <figcaption style= "max-width: 450px; font-size: 15px; margin-top: 5px; margin-left: 40px; text-align: justify;">[Ichiko shows a drawing she’s been working on in her lavender Moleskine journal as we talk, to illustrate being stuck]</figcaption>
+                </figure>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    Sometimes it gets extremely hard, and I think, “Oh my god, I can’t do this anymore.” But I know that if I go there [points to the middle of the chaos], I can really feel the spring of inspiration, the spring of the music. I have to keep going to find it.</p>
+                </article>
+
+            <article class="qa11">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    It’s like you’re going through a storm.</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    It’s like having an adventure.</p>
+                </article>
+                
+            <article class="qa12">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    What are the essentials you need to adventure creatively?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I need a dream. I have to go to bed and have a dream. That’s the most important thing I have. I dream a lot, and write them down and draw them, and they are the source of my creativity.</p>
+            </article>
+                
+            <article class="qa13">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    Can you sleep anywhere? You don’t even have, like, a special pillow?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    [laughs] I can sleep anywhere. If I had to say one thing really specifically: a silk pillowcase. My stylist gave me one and I take it with me everywhere, like when I’m on tour. I have it here.</p>
+                </article>
+                
+            <article class="qa14">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    What does recording your dreams look like? Do you feel any hesitancy around sharing your dreams with your listeners?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I always have my notebook and pen. I process emotions into lyrics or illustration or music; I digest everything that happens to me into a form of art. I need to. But it’s not directly journaling [where I’m] sharing a very specific person or specific time. I’m completely sharing all my feelings but it’s in a different way from saying, “then this, and then this…”</p>
+                </article>
+
+            <article class="qa15">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    Like, a more universal way?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    A more emotional way. It is more of an open-hearted conversation.</p>
+                </article>
+
+            <article class="qa16">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    You’ve gained a large following outside of Japan and toured extensively in the U.S. and elsewhere. Of course, we’re speaking through a translator right now. Has the experience of a language barrier influenced your work? I’ve seen some people call you “my favorite musician I can’t understand.”</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I write in Japanese because it’s my native tongue and this is the language I can do the most with creatively… Maybe if I’m on tour and I meet someone and they give me a very special word, and it just naturally comes into my body, then sometimes I’ll say that word in song.
+                    <br>
+                    <br>It’s not necessary that what I write in the lyrics needs to be translated 100 percent. It’s more important to understand the world I’m creating with my music. It’s like making a magic potion. Language is an important element in the potion but [isn’t all of it]… Language isn’t necessarily the most effective way to understand what I’m trying to say.</p>
+                </article>
+                
+            <article class="qa17">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    What is your relationship to your instruments? How has it changed over the years, as you’ve expanded your repertoire of what you can play?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    My instruments and I are best friends. That’s never changed in the whole time I’ve been making music. [They have] been there for me always. Performing professionally, I don’t want to treat my instruments like work tools. It’s important for me to treat my instruments like friends, and to try not to forget the first time I picked up the guitar. To try to go back to square one and remember the feeling of what the instrument meant to me, outside of everything. And singing… I prefer singing to talking!</p>
+                </article>
+
+            <article class="qa18">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    You’ve previously spoken about being a very lonely child, and how that experience led you to make music. Do you still feel lonely?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    Yeah, I pretty much still feel lonely. [laughs] Very much so. It doesn’t mean I don’t have everyone around me, because I do, but from the time that you are born to when you die, you are alone. I acknowledge the aloneness that we all have. We share in that aloneness. Being alone also applies to the act of creating music; it’s a very mono action. The music is going through me and processing through me, and is a constant reminder of how alone we are.</p>
+                </article>
+
+            <article class="qa19">
+                <p style="font-weight: 30; font-size: 17px; margin-left: 60px; -webkit-text-stroke: 0.5px black; max-width: 500px; background-color: #DBF9DB; ">
+                    How does the concept of aloneness show up in your work?</p>
+                <p style= "font-weight: 10; font-size: 15px; line-height: 20px; text-align: justify; margin-left: 80px; max-width: 500px; background-color: lavenderblush">
+                    I titled the album Luminescent Creatures because I was thinking about when this planet was born and the first creatures born in the sea. The first way that they were able to message between each other was by lighting themselves. They knew how lonely they were. They wanted to share their existence. They are communicating through light, an ancient and instinctive way to communicate, and we could learn from them. I pray for all of us to understand each other and to go back to our roots of where we come from.
+                    <br>
+                    <br>I recorded the sound of the whale in this album, too. The way whales communicate is not the words we use to understand each other, but I hope the fans notice that it’s there and that it can be another guide for how we can communicate not with words but with feelings.</p>
+                </article>
+
+
+                
+                </div>
+        </section>
+        
+
+        <section id="recommendations" 
+                 style="margin-left: 130px; 
+                        margin-top: 50px; 
+                        font-weight: 10; -
+                        webkit-text-stroke: 0.6px black; 
+                        font-size: 12px;
+                        background-color: beige;
+                        max-width: 250px;"
+                        >
+        <h2>Ichiko Aoba recommends</h2>
+        <ul>
+            <li>
+                <a href="#" class="open-btn" data-target="popup-daxo">The Daxophone of Kazuhisa Uchihashi</a>
+                <div id="popup-daxo" class="popup-photo" style="max-width: 250px; top: 25%; left: 65%;">
+                    <a href="#" class="close-btn">✕ close</a>
+                    <a href="https://innocentrecords.bandcamp.com/album/singing-daxophone" target="_blank">
+                        <img src="https://f4.bcbits.com/img/a2148536872_16.jpg" alt="The Daxophone of Kazuhisa Uchihashi">
+                    </a>
+                </div>
+            </li>
+            <li>Natural loofah sponge</li>
+            <li>Fountain pens</li>
+            <li>
+                <a href="#" class="open-btn" data-target="popup-walking">“Walking” by Pat Soundhouse</a>
+                <div id="popup-walking" class="popup-photo" style="max-width: 250px; top: 55%; left: 60%;">
+                    <a href="#" class="close-btn">✕ close</a>
+                    <a href="https://open.spotify.com/album/51FZ8l6SdS1nxZ0ay8xltY?si=wWpqt3vcRo24FZ8B4mIwcA" target="_blank">
+                        <img src="https://f4.bcbits.com/img/a3996760716_16.jpg" alt="Walking by Pat Soundhouse">
+                    </a>
+                </div>
+            </li>
+        </ul>
+        </section>
+    </main>
+    
+    <footer style="margin-top: 100px; margin-left: 950px; font-size: 12px;">
+        <p><br>This project was created by Min Jung Kim as part of the "Digital Treehouse" course at HfG        Karlsruhe.
+           <br>© The Creative Independent. All rights reserved. Source: thecreativeindependent.com</p>
+    </footer>
+    
+  <div id="album-photo-1" class="popup-photo" style="top: 25%;">
+    <a href="#" class="close-btn">✕ close</a>
+    <img src="https://f4.bcbits.com/img/a0232619269_16.jpg" alt="Album Cover 1" />
+  </div>
+    
+  <div id="album-photo-2" class="popup-photo" style="top: 25%;">
+    <a href="#" class="close-btn">✕ close</a>
+    <img src="https://f4.bcbits.com/img/a2741010406_16.jpg" alt="Album Cover 2" />
+  </div>
+
+<div class="animation-container">
+  <svg width="100vw" height="100vh" viewBox="0 0 1000 1000" style="position: fixed; top:0; left: 0; pointer-events: none; z-index: 1;">
+    <path class="petal petal1" d="M50,20 C60,10 80,10 90,20 C100,30 90,50 70,60 C50,70 30,50 30,30 C30,20 40,10 50,20 Z"/>
+    <path class="petal petal2" d="M50,20 C60,10 80,10 90,20 C100,30 90,50 70,60 C50,70 30,50 30,30 C30,20 40,10 50,20 Z"/>
+    <path class="petal petal3" d="M50,20 C60,10 80,10 90,20 C100,30 90,50 70,60 C50,70 30,50 30,30 C30,20 40,10 50,20 Z"/>
+
+    <path class="leaf leaf1" d="M20,30 C30,10 50,10 60,30 C70,50 50,70 30,60 C10,50 10,40 20,30 Z"/>
+    <path class="leaf leaf2" d="M20,30 C30,10 50,10 60,30 C70,50 50,70 30,60 C10,50 10,40 20,30 Z"/>
+  </svg>
+</div>
+    
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.open-btn, .show-photo-btn').forEach(button => {
+      button.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = button.getAttribute('data-target');
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          targetEl.classList.add('show');
+        }
+      });
+    });
+
+    document.querySelectorAll('.close-btn').forEach(button => {
+      button.addEventListener('click', e => {
+        e.preventDefault();
+        const popup = button.closest('.popup-photo') || button.closest('.artist-photo');
+        if (popup) {
+          popup.classList.remove('show');
+        }
+      });
+    });
+  });
+</script>
+
+
+    
+</body>
